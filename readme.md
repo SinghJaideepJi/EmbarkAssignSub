@@ -9,17 +9,17 @@ Developed by:-  Jaideep Singh
 ## List of functions:-
 
 ## Use Case 
--This is Applicant enrollment smart contract which can be used by any Institution.
+- This is Applicant enrollment smart contract which can be used by any Institution.
 
--The owner of the Institution decides whether the Enrollment is Open or Closed.
+- The owner of the Institution decides whether the Enrollment is Open or Closed.
 
--Applicants who wish to enroll can do so is the Admissions are Open.
+- Applicants who wish to enroll can do so is the Admissions are Open.
 
--Applicants who wish to enroll need to deposit 1000 Wei during enrollment.
+- Applicants who wish to enroll need to deposit 1000 Wei during enrollment.
 
--Applicants can cancel their enrollment and withdraw from the program if they wish do so.
+- Applicants can cancel their enrollment and withdraw from the program if they wish do so.
 
--Applicants who withdraw from the program will get a refund of 500 Wei.
+- Applicants who withdraw from the program will get a refund of 500 Wei.
   
 ## The patterns we have used are:-
 

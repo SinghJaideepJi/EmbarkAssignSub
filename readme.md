@@ -6,8 +6,6 @@ Developed by:-  Jaideep Singh
 
 ![](https://github.com/SinghJaideepJi/EmbarkAssignSub/blob/master/EmbarkAssignSub/asset/Coverage.JPG)
 
-## List of functions:-
-
 ## Use Case 
 - This is Applicant enrollment smart contract which can be used by any Institution.
 

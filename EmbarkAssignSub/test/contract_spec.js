@@ -21,7 +21,6 @@ config({
   //},
   contracts: {
     "Enrollment": {
-      // args: [100]
     }
   }
 }, (_err, web3_accounts) => {
@@ -55,7 +54,6 @@ contract("Enrollment", function () {
       assert.ok(false)
     }
     catch(error){
-      // console.log(error)
       assert(error.message.includes(expectedErrors['isAdmissionOpen']))
     }
   });
@@ -68,7 +66,6 @@ contract("Enrollment", function () {
     assert.ok(false)
   }
     catch(error){
-        // console.log(error)
         assert(error.message.includes(expectedErrors['enrollmentFee']))
     }
   });

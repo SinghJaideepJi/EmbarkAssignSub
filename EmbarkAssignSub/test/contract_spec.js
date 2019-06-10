@@ -1,8 +1,13 @@
 // /*global contract, config, it, assert*/
-/*
-const SimpleStorage = require('Embark/contracts/SimpleStorage');
+
+const Enrollment = require('Embark/contracts/Enrollment');
 
 let accounts;
+
+let expectedErrors = {
+  'onlyOwner':"Only the onwer can call this !!!",
+  'isAdmissionOpen':"The Admissions are not Open currently. Please try later !"
+};
 
 // For documentation please see https://embark.status.im/docs/contracts_testing.html
 config({
@@ -13,31 +18,66 @@ config({
   //  ]
   //},
   contracts: {
-    "SimpleStorage": {
-      args: [100]
+    "Enrollment": {
+      // args: [100]
     }
   }
 }, (_err, web3_accounts) => {
   accounts = web3_accounts
 });
 
-contract("SimpleStorage", function () {
+contract("Enrollment", function () {
   this.timeout(0);
 
-  it("should set constructor value", async function () {
-    let result = await SimpleStorage.methods.storedData().call();
-    assert.strictEqual(parseInt(result, 10), 100);
+  it("Enrollment was deployed", async function(){
+    let address = Enrollment.options.address;
+    assert.ok(address) // has a value and not null
   });
 
-  it("set storage value", async function () {
-    await SimpleStorage.methods.set(150).send();
-    let result = await SimpleStorage.methods.get().call();
-    assert.strictEqual(parseInt(result, 10), 150);
+  it("Try to Enroll when OPEN", async function(){
+    await Enrollment.methods.setStateOpen().send({from:accounts[0]});
+
+    await Enrollment.methods.enroll("Jaideep").send({from:accounts[1]});
+
+    let result = await Enrollment.methods.getEnrollmentName().call({from:accounts[1]});
+
+    assert.equal(result,"Jaideep");
   });
 
-  it("should have account with balance", async function() {
-    let balance = await web3.eth.getBalance(accounts[0]);
-    assert.ok(parseInt(balance, 10) > 0);
+  it("Try to Enroll when CLOSED", async function(){
+
+    await Enrollment.methods.setStateClosed().send({from:accounts[0]});
+
+    try{
+      await Enrollment.methods.enroll("Jaideep").send({from:accounts[1]});
+      assert.ok(false)
+    }
+    catch(error){
+      // console.log(error)
+      assert(error.message.includes(expectedErrors['isAdmissionOpen']))
+    }
   });
-}
-*/
+
+  it("Try to Change state to OPEN by non Owner", async function(){
+
+    try{
+      await Enrollment.methods.setStateOpen().send({from:accounts[1]});
+      assert.ok(false)
+    }
+    catch(error){
+      assert(error.message.includes(expectedErrors['onlyOwner']))
+    }
+  });
+
+  it("Try to Change state to Closed by non Owner", async function(){
+
+    try{
+      await Enrollment.methods.setStateOpen().send({from:accounts[1]});
+      assert.ok(false)
+    }
+    catch(error){
+      assert(error.message.includes(expectedErrors['onlyOwner']))
+    }
+  });
+
+});

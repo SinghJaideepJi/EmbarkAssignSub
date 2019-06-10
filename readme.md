@@ -1,8 +1,9 @@
 ## Embark Assignment Submission
 
-Developed by:-  Jaideep Singh 
-                Dharti parikh
-                Anish patel
+#### Developed by:-  
+- Jaideep Singh 
+- Dharti parikh
+- Anish patel
 
 ![](https://github.com/SinghJaideepJi/EmbarkAssignSub/blob/master/EmbarkAssignSub/asset/Coverage.JPG)
 

@@ -4,10 +4,6 @@ contract Enrollment{
     // The School Admissions can be either Open or Closed
     enum State {OPEN, CLOSED}
     State public currentState;
-    struct StudentData{
-        bytes32 name;
-        uint fees;
-    }
 
     mapping (address => string) public enrolled;
     address public owner;
@@ -35,13 +31,19 @@ contract Enrollment{
     }
     
     function enroll(string memory _name) public payable isAdmissionOpen{
-        // require(msg.value == 1 ether, "Enrollment Fee is 1 Ether");
+        require(msg.value == 1000, "Enrollment Fee is 1000 Wei");
         // uint256 _fee = msg.value;
         enrolled[msg.sender] = _name;
     }
 
-    function getEnrollmentName() public returns(string memory){
+    function getEnrollmentName() public view returns(string memory){
         return enrolled[msg.sender];
     }
-    
+
+    function cancelEnrollment() public{
+        require(keccak256(abi.encodePacked(enrolled[msg.sender])) != keccak256(abi.encodePacked("")),"You are not enrolled, cannot get refund");
+        // Withdrawal pattern
+        enrolled[msg.sender] = "";
+        msg.sender.transfer(500);
+    }
 }
